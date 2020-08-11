@@ -1,0 +1,23 @@
+version: "3"
+
+# Service called app
+# On the build section, we set the context
+# to be the current directory
+services:
+  app:
+    build:
+      context: .
+    # Map project from 8000 on host to 8000 on image
+    ports:
+      - "8000:8000"
+    # Allows to get the updates to the project into 
+    # image in real time, map local app to image app 
+    volumes:
+      - ./app:/app
+    # Command to run the application
+    # sh = shell, -c = command,  
+    # runserver 0.0.0.0:8000: run Django dev server available 
+    # on port 8000 on all IP addresses that run on the Docker container
+    # The port 8000 on Docker will be mapped to 8000 on our local machine
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
