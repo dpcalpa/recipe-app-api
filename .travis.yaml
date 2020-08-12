@@ -1,0 +1,16 @@
+language: python
+# This doesn't matter, we will use travis
+# to run the Dockerfile which has the correct version
+python:
+  - "3.6"
+
+services:
+  - docker
+
+# Before script: execute befor automation commands
+before_script: pip install docker-compose
+
+# Run tests and linting tool (flake8)
+# If failure, build not done and send notification
+script:
+  - docker-compose run app sh -c "python manage.py test && flake8"
